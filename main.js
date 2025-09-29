@@ -13,6 +13,9 @@ let selectedIndex = -1;  // last clicked playlist
 
 let coverCache = {};
 let coverArtSize = 60; // default thumbnail size
+// restore saved size, or use default if not set
+coverArtSize = window.GetProperty("SMP_CoverArtSize", coverArtSize);
+
 
 function getThumbSize() {
     const count = plman.PlaylistCount || 1;
@@ -68,10 +71,11 @@ function on_paint(gr) {
     }
 
     // draw label for hovered item
-    if (hoverIndex >= 0) {
+    // only show hover label if hovering over a playlist that is not selected
+    if (hoverIndex >= 0 && hoverIndex !== selectedIndex) {
         const name = plman.GetPlaylistName(hoverIndex);
         const box = getBoxRect(hoverIndex);
-        const labelWidth = thumbSize * 3;
+        const labelWidth = box.w * 3;
         const labelHeight = 100;
 
         let labelX;
@@ -82,9 +86,10 @@ function on_paint(gr) {
         }
 
         gr.FillSolidRect(labelX, box.y, labelWidth, labelHeight, 0xAA000000);
-        gr.GdiDrawText(name, gdi.Font("Segoe UI", Math.max(12, Math.floor(thumbSize / 4))),
+        gr.GdiDrawText(name, gdi.Font("Segoe UI", Math.max(12, Math.floor(box.w / 4))),
             0xFFFFFFFF, labelX + 5, box.y, labelWidth, labelHeight, DT_VCENTER | DT_NOPREFIX | DT_WORDBREAK);
     }
+
 }
 
 function on_size(w, h) { ww = w; wh = h; }
@@ -117,17 +122,31 @@ function on_mouse_leave() {
 }
 
 function on_mouse_lbtn_up(x, y) {
-    let clicked = hitTest(x, y);
-    if (clicked !== -1) {
-        selectedIndex = clicked;
-        plman.ActivePlaylist = clicked;
+    const idx = hitTest(x, y);
+    if (idx >= 0) {
+        selectedIndex = idx;       // persist selection
+        hoverIndex = -1;           // remove hover label immediately
+        plman.ActivePlaylist = idx;
         window.Repaint();
     }
 }
 
+
 // Playlist size menu
-function increaseSize(px = 5) { coverArtSize = Math.min(200, coverArtSize + px); coverCache = {}; window.Repaint(); }
-function decreaseSize(px = 5) { coverArtSize = Math.max(30, coverArtSize - px); coverCache = {}; window.Repaint(); }
+function increaseSize(px = 5) {
+    coverArtSize = Math.min(200, coverArtSize + px);
+    window.SetProperty("SMP_CoverArtSize", coverArtSize); // save permanently
+    coverCache = {};
+    window.Repaint();
+}
+
+function decreaseSize(px = 5) {
+    coverArtSize = Math.max(30, coverArtSize - px);
+    window.SetProperty("SMP_CoverArtSize", coverArtSize); // save permanently
+    coverCache = {};
+    window.Repaint();
+}
+
 
 // Right-click menu
 function on_mouse_rbtn_up(x, y) {
@@ -138,6 +157,7 @@ function on_mouse_rbtn_up(x, y) {
         menu.AppendMenuItem(0, 1, "Load Playlist");
         menu.AppendMenuItem(0, 2, "Rename Playlist");
         menu.AppendMenuItem(0, 3, "Delete Playlist");
+        menu.AppendMenuItem(0, 9, "Add Custom Art Cover");
     } else if (x <= 80 && y <= 80) {
         menu.AppendMenuItem(0, 4, "Increase Cover Art Size (+5px)");
         menu.AppendMenuItem(0, 5, "Decrease Cover Art Size (-5px)");
@@ -186,9 +206,29 @@ function on_mouse_rbtn_up(x, y) {
         let name = utils.InputBox(0, "New playlist name:", "Add Playlist", "New Playlist", "");
         if (name) plman.CreatePlaylist(plman.PlaylistCount, name);
         break;
-    }
-}
+    
+ case 9: // Set Custom Cover
+if (clickedPlaylist >= 0) {
+    let path = utils.InputBox(0, "Enter full path to image file for custom cover:", "Custom Cover", "");
+    if (path && path.length > 0) {
+        try {
+            let img = gdi.Image(path);
+            coverCache[clickedPlaylist] = gdi.CreateImage(getThumbSize(), getThumbSize());
+            let tmpGr = coverCache[clickedPlaylist].GetGraphics();
+            tmpGr.DrawImage(img, 0, 0, getThumbSize(), getThumbSize(), 0, 0, img.Width, img.Height);
+            tmpGr.ReleaseGraphics();
 
+            window.SetProperty("SMP_CustomCover_" + clickedPlaylist, path);
+            window.Repaint();
+        } catch (e) {
+            fb.ShowPopupMessage("Failed to load image.", "Error");
+
+        }
+    }
+break;
+}
+}
+}
 function on_playlists_changed() {
     window.Repaint(); 
 }
