@@ -7,8 +7,9 @@ const DT_WORDBREAK = 0x00000010;
 let ww = 0, wh = 0;
 const padding = 10;
 let mouseX = 0, mouseY = 0;
-let hoverIndex = -1;
-let lastHover = -1;
+
+let hoverIndex = -1;     // currently hovered playlist
+let selectedIndex = -1;  // last clicked playlist
 
 let coverCache = {};
 let coverArtSize = 60; // default thumbnail size
@@ -21,92 +22,105 @@ function getThumbSize() {
     return Math.max(minThumb, Math.min(maxThumb, availableHeight, coverArtSize));
 }
 
+function getBoxRect(i) {
+    const thumbSize = getThumbSize();
+    const y = padding + i * (thumbSize + padding);
+    return { x: padding, y: y, w: thumbSize, h: thumbSize };
+}
+
 function on_paint(gr) {
     gr.FillSolidRect(0, 0, ww, wh, 0xFF191919);
 
     const count = plman.PlaylistCount;
     const thumbSize = getThumbSize();
-    let y = padding;
 
     for (let i = 0; i < count; i++) {
-        gr.FillSolidRect(padding, y, thumbSize, thumbSize, 0xFF555555);
+        const box = getBoxRect(i);
+
+        gr.FillSolidRect(box.x, box.y, box.w, box.h, 0xFF555555);
 
         if (!coverCache[i] && plman.PlaylistItemCount(i) > 0) {
             try {
                 const track = plman.GetPlaylistItems(i)[0];
                 const art = utils.GetAlbumArtV2(track, 0);
                 if (art) {
-                    coverCache[i] = gdi.CreateImage(thumbSize, thumbSize);
+                    coverCache[i] = gdi.CreateImage(box.w, box.h);
                     let tmpGr = coverCache[i].GetGraphics();
-                    tmpGr.DrawImage(art, 0, 0, thumbSize, thumbSize, 0, 0, art.Width, art.Height);
+                    tmpGr.DrawImage(art, 0, 0, box.w, box.h, 0, 0, art.Width, art.Height);
                     tmpGr.ReleaseGraphics();
                 }
             } catch (e) {}
         }
 
         if (coverCache[i]) {
-            gr.DrawImage(coverCache[i], padding, y, thumbSize, thumbSize, 0, 0, thumbSize, thumbSize);
+            gr.DrawImage(coverCache[i], box.x, box.y, box.w, box.h, 0, 0, coverCache[i].Width, coverCache[i].Height);
         }
 
-        if (hoverIndex === i) {
-            gr.DrawRect(padding - 2, y - 2, thumbSize + 4, thumbSize + 4, 2, 0xFFFFFFFF);
+        // hover highlight
+        if (i === hoverIndex) {
+            gr.DrawRect(box.x - 1, box.y - 1, box.w + 2, box.h + 2, 2, 0xFFFFFFFF);
         }
 
-        y += thumbSize + padding;
+        // selection highlight
+        if (i === selectedIndex) {
+            gr.DrawRect(box.x - 3, box.y - 3, box.w + 6, box.h + 6, 2, 0xFF00FF00); // green box
+        }
     }
 
+    // draw label for hovered item
     if (hoverIndex >= 0) {
         const name = plman.GetPlaylistName(hoverIndex);
-        const thumbY = padding + hoverIndex * (thumbSize + padding);
+        const box = getBoxRect(hoverIndex);
         const labelWidth = thumbSize * 3;
         const labelHeight = 100;
 
         let labelX;
-        if (padding + thumbSize + 5 + labelWidth <= ww) {
-            labelX = padding + thumbSize + 5;
+        if (box.x + box.w + 5 + labelWidth <= ww) {
+            labelX = box.x + box.w + 5;
         } else {
-            labelX = Math.max(0, padding - labelWidth - 5);
+            labelX = Math.max(0, box.x - labelWidth - 5);
         }
 
-        gr.FillSolidRect(labelX, thumbY, labelWidth, labelHeight, 0xAA000000);
+        gr.FillSolidRect(labelX, box.y, labelWidth, labelHeight, 0xAA000000);
         gr.GdiDrawText(name, gdi.Font("Segoe UI", Math.max(12, Math.floor(thumbSize / 4))),
-            0xFFFFFFFF, labelX + 5, thumbY, labelWidth, labelHeight, DT_VCENTER | DT_NOPREFIX | DT_WORDBREAK);
+            0xFFFFFFFF, labelX + 5, box.y, labelWidth, labelHeight, DT_VCENTER | DT_NOPREFIX | DT_WORDBREAK);
     }
 }
 
 function on_size(w, h) { ww = w; wh = h; }
 
+function hitTest(x, y) {
+    const count = plman.PlaylistCount;
+    for (let i = 0; i < count; i++) {
+        const box = getBoxRect(i);
+        if (x >= box.x && x <= box.x + box.w && y >= box.y && y <= box.y + box.h) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 function on_mouse_move(x, y) {
     mouseX = x; mouseY = y;
-    const count = plman.PlaylistCount;
-    const thumbSize = getThumbSize();
-    let yPos = padding;
-    let newHover = -1;
-
-    for (let i = 0; i < count; i++) {
-        if (x >= padding && x <= padding + thumbSize && y >= yPos && y <= yPos + thumbSize) {
-            newHover = i; break;
-        }
-        yPos += thumbSize + padding;
-    }
-
+    let newHover = hitTest(x, y);
     if (newHover !== hoverIndex) {
-        if (hoverIndex >= 0) {
-            let yPrev = padding + hoverIndex * (thumbSize + padding);
-            window.RepaintRect(padding - 2, yPrev - 2, thumbSize + 200, thumbSize + 4);
-        }
-        if (newHover >= 0) {
-            let yCur = padding + newHover * (thumbSize + padding);
-            window.RepaintRect(padding - 2, yCur - 2, thumbSize + 200, thumbSize + 4);
-        }
-        lastHover = hoverIndex;
         hoverIndex = newHover;
+        window.Repaint();
+    }
+}
+
+function on_mouse_leave() {
+    if (hoverIndex !== -1) {
+        hoverIndex = -1;
+        window.Repaint();
     }
 }
 
 function on_mouse_lbtn_up(x, y) {
-    if (hoverIndex >= 0) {
-        plman.ActivePlaylist = hoverIndex;
+    let clicked = hitTest(x, y);
+    if (clicked !== -1) {
+        selectedIndex = clicked;
+        plman.ActivePlaylist = clicked;
         window.Repaint();
     }
 }
@@ -117,17 +131,7 @@ function decreaseSize(px = 5) { coverArtSize = Math.max(30, coverArtSize - px); 
 
 // Right-click menu
 function on_mouse_rbtn_up(x, y) {
-    const thumbSize = getThumbSize();
-    let clickedPlaylist = -1;
-    let yPos = padding;
-    const count = plman.PlaylistCount;
-
-    for (let i = 0; i < count; i++) {
-        if (x >= padding && x <= padding + thumbSize && y >= yPos && y <= yPos + thumbSize) {
-            clickedPlaylist = i; break;
-        }
-        yPos += thumbSize + padding;
-    }
+    let clickedPlaylist = hitTest(x, y);
 
     const menu = window.CreatePopupMenu();
     if (clickedPlaylist >= 0) {
@@ -141,16 +145,13 @@ function on_mouse_rbtn_up(x, y) {
         menu.AppendMenuItem(0, 7, "Decrease Cover Art Size (-10px)");
         menu.AppendMenuItem(0, 8, "Add Playlist");
     } else {
-        // empty space → SMP default menu
-        window.DefinePopupMenu && window.DefinePopupMenu(x, y);
-        return;
+        return; // let SMP menu show
     }
 
     const idx = menu.TrackPopupMenu(x, y);
 
     switch(idx) {
-            // inside on_mouse_rbtn_up switch:
-    case 1: // Load Playlist (make active, not file dialog)
+    case 1: // Load Playlist (just set active for now)
         if (clickedPlaylist >= 0) {
             plman.ActivePlaylist = clickedPlaylist;
         }
@@ -185,6 +186,9 @@ function on_mouse_rbtn_up(x, y) {
         let name = utils.InputBox(0, "New playlist name:", "Add Playlist", "New Playlist", "");
         if (name) plman.CreatePlaylist(plman.PlaylistCount, name);
         break;
-
     }
+}
+
+function on_playlists_changed() {
+    window.Repaint(); 
 }
