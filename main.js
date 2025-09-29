@@ -18,12 +18,11 @@ coverArtSize = window.GetProperty("SMP_CoverArtSize", coverArtSize);
 
 
 function getThumbSize() {
-    const count = plman.PlaylistCount || 1;
-    const maxThumb = 120;
+    const maxThumb = 200;
     const minThumb = 30;
-    let availableHeight = (wh - padding * (count + 1)) / count;
-    return Math.max(minThumb, Math.min(maxThumb, availableHeight, coverArtSize));
+    return Math.max(minThumb, Math.min(maxThumb, coverArtSize));
 }
+
 
 function getBoxRect(i) {
     const thumbSize = getThumbSize();
