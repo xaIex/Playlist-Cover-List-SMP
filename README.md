@@ -23,12 +23,17 @@ This project is written entirely in JavaScript (SMP) and optimized for performan
 
 ## Features
 
-✅ Persistent custom covers
-✅ Smart cache management
-✅ Scrollable playlist view
-✅ Dynamic cover size adjustment
-✅ Automatic cleanup of deleted playlists
-✅ Lightweight, efficient, and visually clean
+- Persistent custom covers
+
+- Smart cache management
+
+- Scrollable playlist view
+
+- Dynamic cover size adjustment
+
+- Automatic cleanup of deleted playlists
+
+- Lightweight, efficient, and visually clean
 
 ## Installation
 
