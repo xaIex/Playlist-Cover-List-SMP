@@ -8,6 +8,9 @@ A lightweight Spider Monkey Panel script that adds custom cover art, scrollable 
 
 <img width="2558" height="1387" alt="image" src="https://github.com/user-attachments/assets/24a390ee-d024-4aef-a30f-60230ed08c92" />
 
+<img width="2550" height="1386" alt="image" src="https://github.com/user-attachments/assets/86e6ecef-60ba-4f2e-b39e-633904dbaa9d" />
+
+
 
 ## Overview
 
