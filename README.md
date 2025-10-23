@@ -1,7 +1,8 @@
 ## Playlist-Cover
 Playlist Cover Manager for foobar2000
+- Want a Spotify like playlist panel? Look no further!
+A lightweight Spider Monkey Panel script that adds custom cover art, scrollable playlists, and persistent settings to your foobar2000 player. 
 
-A lightweight Spider Monkey Panel script that adds custom cover art, scrollable playlists, and persistent settings to your foobar2000 player.
 
 <img width="2558" height="1387" alt="image" src="https://github.com/user-attachments/assets/24a390ee-d024-4aef-a30f-60230ed08c92" />
 
