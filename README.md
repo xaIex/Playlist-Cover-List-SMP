@@ -1,28 +1,12 @@
-## Playlist-Cover
-Playlist Cover Manager for foobar2000
 
-- Want a Spotify like playlist panel? Look no further!
+## Playlist Tab Cover Manager for foobar2000
 
-A lightweight Spider Monkey Panel script that adds custom cover art, scrollable playlists, and persistent settings to your foobar2000 player. 
+Want a Spotify like playlist panel? Tired of boring looking tabs? Sick of walls of texts? Look no further!
 
+A lightweight Spider Monkey Panel script that adds custom cover art, essential playlist functions, customizable features all in one. 
 
 <img width="2558" height="1387" alt="image" src="https://github.com/user-attachments/assets/24a390ee-d024-4aef-a30f-60230ed08c92" />
 
-
-
-
-
-## Overview
-
-Playlist Cover Manager enhances your foobar2000 experience by providing a sleek, thumbnail-based playlist viewer with the ability to:
-
-Display playlist thumbnails with album art or custom images
-
-Set custom cover art for each playlist (persists after restart)
-
-Scroll through playlists with smooth mouse wheel navigation
-
-Resize cover thumbnails 
 
 ## Features
 
@@ -30,11 +14,13 @@ Resize cover thumbnails
 
 - Scrollable playlist view
 
-- Dynamic cover size adjustment
+- Adjustable cover size 
 
 - Two Viewing modes
 
 - Add, Save, Load, Delete, Move Functions
+
+- Customizable fonts and colors
 
 ## Installation
 
@@ -50,30 +36,79 @@ Click OK to load the panel.
 ## Usage
 
 ### Right-click on a playlist cover:
+#### General Functions
 <img width="282" height="227" alt="image" src="https://github.com/user-attachments/assets/889217fd-249f-497f-9e38-08979293a124" />
 
-- Load Playlist - Must first specify the full file path
+
+##### Load Playlist 
+- Must first specify the full file path
   
-<img width="418" height="166" alt="image" src="https://github.com/user-attachments/assets/3a508435-9f2e-46c6-942b-8cb68a227d6b" />
+  <img width="418" height="166" alt="image" src="https://github.com/user-attachments/assets/3a508435-9f2e-46c6-942b-8cb68a227d6b" />
+
+##### Rename Playlist
+- Rename your playlist like normal
+
+  <img width="413" height="166" alt="image" src="https://github.com/user-attachments/assets/e07b03b5-23f7-4389-bc0d-8c52ee66edf7" />
 
 
+##### Delete Playlist 
+- removes the playlist and its saved cover data.
 
-- Add Custom Art Cover – choose a custom image for that playlist.
 
-- Rename Playlist – rename playlist name
+##### Add Playlist 
+- Adds a new playlist
+  
+   <img width="409" height="166" alt="image" src="https://github.com/user-attachments/assets/385a6b46-0ae3-44f4-bbf2-569b0cf7d0df" />
 
-- Delete Playlist – removes the playlist and its saved cover data.
+##### Save Playlist
+  - Must first specifiy a folder location to save your playlist in panel properties.
+  - First, right-click on an empty space to access the panel properties menu
+  - Specify your selected folder to save your playlist in.
 
-- Can move playlist up or down similar to foobar's playlist tabs
+    <img width="606" height="20" alt="image" src="https://github.com/user-attachments/assets/75302c4e-3351-4c43-8e1b-f0f56b78a278" />
+  - With the folder location saved, you can now quickly and easily save your playlist.
+
+##### Move Up/Down 
+- Can move playlist cover tabs up or down similar to foobar's playlist tabs
+  
+   <img width="153" height="294" alt="image" src="https://github.com/user-attachments/assets/8932e7cd-9b2d-4c7d-87c0-fecd7f13fa8c" />
+   
+
+   <img width="152" height="298" alt="image" src="https://github.com/user-attachments/assets/f4db3b59-bd16-414e-bfaa-eb900fbf784b" />
+
+
 
 #### Customization:
 <img width="266" height="211" alt="image" src="https://github.com/user-attachments/assets/658b85a1-2219-48a8-8a2d-c44960e733dc" />
+
+#### Changing Playlist Tab Cover Size
+- In panel properties, adjust the px size:
+
+<img width="701" height="19" alt="image" src="https://github.com/user-attachments/assets/a854c4ca-39eb-4fb7-9a19-adbf92286ed8" />
+
 
 #### Adding Cover Art:
 
 - Click 'Add Custom Art' to change the cover art for your playlist tab
 - Specify the file path for your image
+  
 <img width="416" height="173" alt="image" src="https://github.com/user-attachments/assets/86c04ab9-6a25-49d4-940f-90a586539844" />
+
+#### Changing Fonts
+<img width="411" height="165" alt="image" src="https://github.com/user-attachments/assets/23b04a4a-3f49-499e-9118-7b0ab3161789" />
+
+****
+<img width="82" height="37" alt="image" src="https://github.com/user-attachments/assets/657687aa-1f30-494e-a182-70d37e1271bb" />
+
+#### Changing Hover/Selected Color
+- Can change color in RGB format when hovering over your playlist tab covers
+- Background and font colors can also be changed the same way
+
+<img width="409" height="168" alt="image" src="https://github.com/user-attachments/assets/c1198475-2e88-4940-8dbf-c6897f76e1d2" />
+
+****
+<img width="150" height="158" alt="image" src="https://github.com/user-attachments/assets/6f65ade0-c2d5-481e-9d5c-27deb02451f8" />
+
 
 ## Layout modes
 - Can select two layout modes via right click on cover art.
@@ -90,7 +125,8 @@ Click OK to load the panel.
 - Playlist name and track count are displayed below the playlist cover arts.
 - Recommended for those with a lot of playlists
 
-  <img width="156" height="584" alt="image" src="https://github.com/user-attachments/assets/21669028-d09d-4c9f-a480-9449201c0aac" />
+<img width="149" height="577" alt="image" src="https://github.com/user-attachments/assets/0ce18804-33a5-4784-bb81-acafe3b13071" />
+
 
   
  ## Data Management
