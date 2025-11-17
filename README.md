@@ -34,7 +34,7 @@ Resize cover thumbnails
 
 - Two Viewing modes
 
-- Add, Save, Load, Delete 
+- Add, Save, Load, Delete, Move Functions
 
 ## Installation
 
@@ -43,25 +43,28 @@ Install Spider Monkey Panel
 
 Right-click in a Spider Monkey Panel → Edit script.
 
-Paste the contents of main.js or release.
+Paste the contents of main.js or releases tab.
 
 Click OK to load the panel.
 
 ## Usage
 
 ### Right-click on a playlist cover:
+<img width="282" height="227" alt="image" src="https://github.com/user-attachments/assets/889217fd-249f-497f-9e38-08979293a124" />
+
+- Load Playlist - Must first specify the full file path
+  
+<img width="418" height="166" alt="image" src="https://github.com/user-attachments/assets/3a508435-9f2e-46c6-942b-8cb68a227d6b" />
+
+
 
 - Add Custom Art Cover – choose a custom image for that playlist.
 
-- Rename Playlist – rename and preserve your custom art.
+- Rename Playlist – rename playlist name
 
 - Delete Playlist – removes the playlist and its saved cover data.
 
-- Scroll with your mouse wheel to browse long lists.
-
-- Right-click empty space to adjust cover art size (+/- 5px or 10px).
-
-- Can move playlist up or down 
+- Can move playlist up or down similar to foobar's playlist tabs
 
 #### Customization:
 <img width="266" height="211" alt="image" src="https://github.com/user-attachments/assets/658b85a1-2219-48a8-8a2d-c44960e733dc" />
