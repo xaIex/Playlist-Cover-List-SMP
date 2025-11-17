@@ -22,43 +22,30 @@ Set custom cover art for each playlist (persists after restart)
 
 Scroll through playlists with smooth mouse wheel navigation
 
-Resize cover thumbnails dynamically with right-click options
-
-Automatically clean up saved covers when playlists are deleted or renamed
-
-Fully integrated into the Spider Monkey Panel (SMP) scripting engine
-
-This project is written entirely in JavaScript (SMP) and optimized for performance, achieving a ~40% reduction in CPU usage compared to previous builds.
+Resize cover thumbnails 
 
 ## Features
 
 - Persistent custom covers
 
-- Smart cache management
-
 - Scrollable playlist view
 
 - Dynamic cover size adjustment
 
-- Automatic cleanup of deleted playlists
+- Two Viewing modes
 
-- Lightweight, efficient, and visually clean
+- Add, Save, Load, Delete 
 
 ## Installation
-
-Install foobar2000
- (v1.6 or later).
 
 Install Spider Monkey Panel
  (v1.6.1 or later).
 
-Right-click in a Spider Monkey Panel → Configure → Edit script.
+Right-click in a Spider Monkey Panel → Edit script.
 
-Paste the contents of main.js (this repository).
+Paste the contents of main.js or release.
 
 Click OK to load the panel.
-
-Restart foobar2000. Your playlists should now appear with dynamic covers.
 
 ## Usage
 
