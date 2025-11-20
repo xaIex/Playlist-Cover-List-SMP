@@ -5,7 +5,8 @@ Want a Spotify like playlist panel? Tired of boring looking tabs? Sick of walls 
 
 A lightweight Spider Monkey Panel script that adds custom cover art, essential playlist functions and customizable features all in one. 
 
-<img width="1817" height="1166" alt="image" src="https://github.com/user-attachments/assets/8d16de80-a85e-4f77-9c9b-84450fadadcd" />
+<img width="1802" height="1160" alt="image" src="https://github.com/user-attachments/assets/91a6ec7c-d550-4091-a352-fee92acc7bd4" />
+
 
 
 
