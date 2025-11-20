@@ -35,7 +35,7 @@ Install Spider Monkey Panel
 
 Right-click in a Spider Monkey Panel → Edit script.
 
-Paste the contents of main.js or releases tab.
+Paste the contents of main.js or PlaylistCoverTabManaer.txt in releases tab.
 
 Click OK to load the panel.
 
