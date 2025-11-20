@@ -123,8 +123,16 @@ Click OK to load the panel.
 <img width="150" height="158" alt="image" src="https://github.com/user-attachments/assets/6f65ade0-c2d5-481e-9d5c-27deb02451f8" />
 
 
-### Layout modes
-- Can select two layout modes via right click on cover art.
+### Layout/Viewing modes
+- Can select two viewing modes via right click on cover art.
+- Can also toggle vertical or horizontal modes
+
+<img width="276" height="56" alt="image" src="https://github.com/user-attachments/assets/bb5d3d1d-a9f0-434d-8fed-fc44fa090da1" />
+
+
+<img width="1071" height="160" alt="image" src="https://github.com/user-attachments/assets/a60c6ced-266a-4a5f-8394-3a78d66a53cd" />
+
+_**Note:**_ You cannot toggle Text mode in horizontal mode
 
 #### Hover mode:
 - Text elements are hidden until mouse hovers over desired playlist cover
@@ -157,4 +165,7 @@ Single JSON storage - All custom covers stored in `DATA:CustomCovers_JSON`
 Automatic cleanup - Deleted playlists are automatically removed from the JSON object
 
 The script automatically cleans up unused properties when playlists are deleted or renamed.
+
+## What if I have a lot of playlists?
+- I would recommend to increase the scroll speed or make the cover tabs smaller!
 
