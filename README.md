@@ -1,94 +1,129 @@
-## Playlist-Cover
-Playlist Cover Manager for foobar2000
 
-- Want a Spotify like playlist panel? Look no further!
+## Playlist Tab Cover Manager for foobar2000
 
-A lightweight Spider Monkey Panel script that adds custom cover art, scrollable playlists, and persistent settings to your foobar2000 player. 
+Want a Spotify like playlist panel? Tired of boring looking tabs? Sick of walls of texts? Look no further!
 
+A lightweight Spider Monkey Panel script that adds custom cover art, essential playlist functions, customizable features all in one. 
 
 <img width="2558" height="1387" alt="image" src="https://github.com/user-attachments/assets/24a390ee-d024-4aef-a30f-60230ed08c92" />
 
 
-
-
-
-## Overview
-
-Playlist Cover Manager enhances your foobar2000 experience by providing a sleek, thumbnail-based playlist viewer with the ability to:
-
-Display playlist thumbnails with album art or custom images
-
-Set custom cover art for each playlist (persists after restart)
-
-Scroll through playlists with smooth mouse wheel navigation
-
-Resize cover thumbnails dynamically with right-click options
-
-Automatically clean up saved covers when playlists are deleted or renamed
-
-Fully integrated into the Spider Monkey Panel (SMP) scripting engine
-
-This project is written entirely in JavaScript (SMP) and optimized for performance, achieving a ~40% reduction in CPU usage compared to previous builds.
-
 ## Features
+### Playback & Navigation
+- Quick Playback - Double-click any playlist to instantly play a random track
+- Scrollable View - Smooth scrolling through your entire playlist collection
+- Dual Layout Modes - Switch between horizontal and vertical layouts to fit your theme
 
-- Persistent custom covers
+### Visual Customization 
+- Dynamic Wallpaper Background - Display album art from the currently playing track as a blurred background 
+- Extensive Blur Controls - Adjust blur intensity (1-90) and overlay darkness (0-255) for perfect readability 
+- Custom Color Scheme - Personalize background, font, hover, and selection border colors to match your theme
 
-- Smart cache management
+### Display Options
+- Flexible Info Display - Toggle between two viewing modes:
+  - Hover mode (covers only, info appears upon hover)
+  - Text mode (names and track counts below covers)
 
-- Scrollable playlist view
+ ### Playlist Management
+ - Essential Functions - Add, Save, Load, Delete, Duplicate, Rename and Reorder playlists
 
-- Dynamic cover size adjustment
 
-- Automatic cleanup of deleted playlists
-
-- Lightweight, efficient, and visually clean
-
-## Installation
-
-Install foobar2000
- (v1.6 or later).
+## Install
 
 Install Spider Monkey Panel
  (v1.6.1 or later).
 
-Right-click in a Spider Monkey Panel → Configure → Edit script.
+Right-click in a Spider Monkey Panel → Edit script.
 
-Paste the contents of main.js (this repository).
+Paste the contents of main.js or releases tab.
 
 Click OK to load the panel.
-
-Restart foobar2000. Your playlists should now appear with dynamic covers.
 
 ## Usage
 
 ### Right-click on a playlist cover:
+#### General Functions
+<img width="284" height="225" alt="image" src="https://github.com/user-attachments/assets/9df75183-06a5-4ecc-b0fc-483a755db4d7" />
 
-- Add Custom Art Cover – choose a custom image for that playlist.
 
-- Rename Playlist – rename and preserve your custom art.
+##### Load Playlist 
+- Must first specify the full file path
+  
+  <img width="418" height="166" alt="image" src="https://github.com/user-attachments/assets/3a508435-9f2e-46c6-942b-8cb68a227d6b" />
 
-- Delete Playlist – removes the playlist and its saved cover data.
+##### Rename Playlist
+- Rename your playlist like normal
 
-- Scroll with your mouse wheel to browse long lists.
+  <img width="413" height="166" alt="image" src="https://github.com/user-attachments/assets/e07b03b5-23f7-4389-bc0d-8c52ee66edf7" />
 
-- Right-click empty space to adjust cover art size (+/- 5px or 10px).
 
-- Can move playlist up or down 
+##### Delete Playlist 
+- removes the playlist and its saved cover data.
 
-#### Customization:
+
+##### Add Playlist 
+- Adds a new playlist
+  
+   <img width="409" height="166" alt="image" src="https://github.com/user-attachments/assets/385a6b46-0ae3-44f4-bbf2-569b0cf7d0df" />
+
+##### Duplicate Playlist
+- Duplicates selected playlist with custom cover saved
+- Will be renamed 'Copy of (playlist name)'
+
+##### Save Playlist
+  - Must first specifiy a folder location to save your playlist in panel properties.
+  - First, right-click on an empty space to access the panel properties menu
+  - Specify your selected folder to save your playlist in.
+
+<img width="593" height="23" alt="image" src="https://github.com/user-attachments/assets/9cda5681-6544-4628-b926-ff66ef302f80" />
+
+  - With the folder location saved, you can now quickly and easily save your playlist.
+
+##### Move Up/Down 
+- Can move playlist cover tabs up or down similar to foobar's playlist tabs
+  
+   <img width="153" height="294" alt="image" src="https://github.com/user-attachments/assets/8932e7cd-9b2d-4c7d-87c0-fecd7f13fa8c" />
+   
+
+   <img width="152" height="298" alt="image" src="https://github.com/user-attachments/assets/f4db3b59-bd16-414e-bfaa-eb900fbf784b" />
+
+
+
+## Customization:
 <img width="266" height="211" alt="image" src="https://github.com/user-attachments/assets/658b85a1-2219-48a8-8a2d-c44960e733dc" />
+
+#### Changing Playlist Tab Cover Size
+- In panel properties, adjust cover size
+
+<img width="419" height="21" alt="image" src="https://github.com/user-attachments/assets/195044e4-be5f-4b90-935f-bd65946fd03c" />
 
 #### Adding Cover Art:
 
 - Click 'Add Custom Art' to change the cover art for your playlist tab
 - Specify the file path for your image
+  
 <img width="416" height="173" alt="image" src="https://github.com/user-attachments/assets/86c04ab9-6a25-49d4-940f-90a586539844" />
 
-## Layout modes
+#### Changing Fonts
+<img width="411" height="165" alt="image" src="https://github.com/user-attachments/assets/23b04a4a-3f49-499e-9118-7b0ab3161789" />
+
+****
+<img width="82" height="37" alt="image" src="https://github.com/user-attachments/assets/657687aa-1f30-494e-a182-70d37e1271bb" />
+
+#### Changing Hover/Selected Color
+- Can change color in RGB format when hovering over your playlist tab covers
+- Background and font colors can also be changed the same way
+
+<img width="409" height="168" alt="image" src="https://github.com/user-attachments/assets/c1198475-2e88-4940-8dbf-c6897f76e1d2" />
+
+****
+<img width="150" height="158" alt="image" src="https://github.com/user-attachments/assets/6f65ade0-c2d5-481e-9d5c-27deb02451f8" />
+
+
+### Layout modes
 - Can select two layout modes via right click on cover art.
 
-### Hover mode:
+#### Hover mode:
 - Text elements are hidden until mouse hovers over desired playlist cover
 - Offers a clean look
 - Displays playlist name and track count within that playlist on hover
@@ -96,17 +131,27 @@ Restart foobar2000. Your playlists should now appear with dynamic covers.
 <img width="154" height="297" alt="image" src="https://github.com/user-attachments/assets/365fead9-6cdb-42ce-9659-5d9ea33590bd" />
 
 
-### Text Mode:
+#### Text Mode:
 - Playlist name and track count are displayed below the playlist cover arts.
 - Recommended for those with a lot of playlists
 
-  <img width="156" height="584" alt="image" src="https://github.com/user-attachments/assets/21669028-d09d-4c9f-a480-9449201c0aac" />
+<img width="149" height="577" alt="image" src="https://github.com/user-attachments/assets/0ce18804-33a5-4784-bb81-acafe3b13071" />
 
-  
+### Wallpaper Settings
+<img width="272" height="107" alt="image" src="https://github.com/user-attachments/assets/5fb89641-e975-4777-8e85-b9ffbe897fa9" />
+
+- Enable dynamic album art for the background
+- Once enabled, you can further customize with blur settings to fine tune to your liking:
+
+<img width="297" height="110" alt="image" src="https://github.com/user-attachments/assets/ce5949d8-e2d1-4ebb-8657-7c156420e785" />
+
+- Blur amount determine how strong you want the blur to be
+- Blur Overlay Darkness will adjust the brightness settings
+
  ## Data Management
+Single JSON storage - All custom covers stored in `DATA:CustomCovers_JSON`
 
-All cover settings are stored as SMP properties.
+Automatic cleanup - Deleted playlists are automatically removed from the JSON object
 
 The script automatically cleans up unused properties when playlists are deleted or renamed.
 
-Custom covers are stored by playlist name, so renaming preserves your artwork
