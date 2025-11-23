@@ -32,12 +32,12 @@ let hoverBorderColor   = window.GetProperty("COLOR:HoverBorderColor", 0xFFFFFFFF
 let selectedBorderColor = window.GetProperty("COLOR:SelectedBorderColor", 0xFF00FF00);
 
 // === WALLPAPER & BLUR SETTINGS ===
-let showWallpaper = window.GetProperty("WALLPAPER:ShowWallpaper", false);
-let wallpaperBlurred = window.GetProperty("WALLPAPER:WallpaperBlurred", true);
-let wallpaperBlurValue = window.GetProperty("WALLPAPER:WallpaperBlurValue", 15); // 1-90, lower = more blur
-let wallpaperOverlayAlpha = window.GetProperty("WALLPAPER:WallpaperOverlayAlpha", 180); // 0-255
+let showAlbumArt = window.GetProperty("WALLPAPER:ShowAlbumArt", false);
+let albumArtBlurred = window.GetProperty("WALLPAPER:AlbumArtBlurred", true);
+let albumArtBlurValue = window.GetProperty("WALLPAPER:AlbumArtBlurValue", 15); // 1-90, lower = more blur
+let albumArtOverlayAlpha = window.GetProperty("WALLPAPER:AlbumArtOverlayAlpha", 180); // 0-255
 
-let wallpaperImg = null;
+let albumArtImg = null;
 let lastPlayingPath = "";
 
 // --- SCROLLING ---
@@ -185,7 +185,7 @@ function draw_blurred_image(image, ix, iy, iw, ih, bx, by, bw, bh, blur_value, o
     return newImg;
 }
 
-function FormatWallpaper(img) {
+function formatAlbumArt(img) {
     if (!img || !ww || !wh) return img;
 
     var tmp_img = gdi.CreateImage(ww, wh);
@@ -194,17 +194,17 @@ function FormatWallpaper(img) {
     drawImage(gp, img, 0, 0, ww, wh, 1);
     tmp_img.ReleaseGraphics(gp);
 
-    if (wallpaperBlurred) {
-        tmp_img = draw_blurred_image(tmp_img, 0, 0, tmp_img.Width, tmp_img.Height, 0, 0, tmp_img.Width, tmp_img.Height, wallpaperBlurValue, 
-            (wallpaperOverlayAlpha << 24) | 0x00000000);
+    if (albumArtBlurred) {
+        tmp_img = draw_blurred_image(tmp_img, 0, 0, tmp_img.Width, tmp_img.Height, 0, 0, tmp_img.Width, tmp_img.Height, albumArtBlurValue, 
+            (albumArtOverlayAlpha << 24) | 0x00000000);
     }
 
     return tmp_img;
 }
 
-function setWallpaperImg() {
-    if (!fb.IsPlaying || !showWallpaper) {
-        wallpaperImg = null;
+function setAlbumArtImg() {
+    if (!fb.IsPlaying || !showAlbumArt) {
+        albumArtImg = null;
         return;
     }
 
@@ -213,17 +213,17 @@ function setWallpaperImg() {
         var currentPath = fb.TitleFormat("%path%").Eval();
         
         // Only update if song changed
-        if (currentPath === lastPlayingPath && wallpaperImg) return;
+        if (currentPath === lastPlayingPath && albumArtImg) return;
         lastPlayingPath = currentPath;
 
         var tmp = utils.GetAlbumArtV2(nowPlaying, 0);
         if (tmp) {
-            wallpaperImg = FormatWallpaper(tmp);
+            albumArtImg = formatAlbumArt(tmp);
         } else {
-            wallpaperImg = null;
+            albumArtImg = null;
         }
     } catch (e) {
-        wallpaperImg = null;
+        albumArtImg = null;
     }
 }
 
@@ -297,8 +297,8 @@ function on_paint(gr) {
     }
 
     // Draw wallpaper background if enabled
-    if (showWallpaper && wallpaperImg) {
-        gr.DrawImage(wallpaperImg, 0, 0, ww, wh, 0, 0, wallpaperImg.Width, wallpaperImg.Height, 0, 255);
+    if (showAlbumArt && albumArtImg) {
+        gr.DrawImage(albumArtImg, 0, 0, ww, wh, 0, 0, albumArtImg.Width, albumArtImg.Height, 0, 255);
     } else {
         gr.FillSolidRect(0, 0, ww, wh, bgColor);
     }
@@ -389,8 +389,8 @@ function on_paint(gr) {
 function on_size(w, h) { 
     ww = w; 
     wh = h;
-    if (showWallpaper && fb.IsPlaying) {
-        setWallpaperImg();
+    if (showAlbumArt && fb.IsPlaying) {
+        setAlbumArtImg();
     }
 }
 
@@ -499,10 +499,10 @@ function on_mouse_rbtn_up(x, y) {
         menu.AppendMenuItem(0, 11, "Set Hover Border Color");
         menu.AppendMenuItem(0, 12, "Set Selected Border Color");
         menu.AppendMenuSeparator();
-        menu.AppendMenuItem(0, 15, showWallpaper ? "✓ Show Wallpaper" : "Show Wallpaper");
-        menu.AppendMenuItem(showWallpaper ? 0 : 4, 16, wallpaperBlurred ? "✓ Blur Wallpaper" : "Blur Wallpaper");
-        menu.AppendMenuItem(showWallpaper ? 0 : 4, 17, "Set Blur Amount (1-90)");
-        menu.AppendMenuItem(showWallpaper ? 0 : 4, 18, "Set Overlay Darkness (0-255)");
+        menu.AppendMenuItem(0, 15, showAlbumArt ? "✓ Show Album Art" : "Show Album Art");
+        menu.AppendMenuItem(showAlbumArt ? 0 : 4, 16, albumArtBlurred ? "✓ Blur Album Art" : "Blur Album Art");
+        menu.AppendMenuItem(showAlbumArt ? 0 : 4, 17, "Set Blur Amount (1-90)");
+        menu.AppendMenuItem(showAlbumArt ? 0 : 4, 18, "Set Overlay Darkness (0-255)");
         menu.AppendMenuSeparator();
         menu.AppendMenuItem(0, 19, layoutMode === "horizontal" ? "✓ Horizontal Layout" : "Horizontal Layout");
         menu.AppendMenuItem(0, 20, layoutMode === "vertical" ? "✓ Vertical Layout" : "Vertical Layout");
@@ -573,7 +573,7 @@ function on_mouse_rbtn_up(x, y) {
             
         case 5: {
             if (clickedPlaylist >= 0) {
-             
+                let saveFolder = window.GetProperty("DATA:PlaylistSavePath", "");
                 if (!saveFolder || saveFolder.length === 0) {
                     fb.ShowPopupMessage("No save folder defined.\nSet DATA:PlaylistSavePath in panel properties.", "Save Playlist");
                     break;
@@ -729,22 +729,22 @@ function on_mouse_rbtn_up(x, y) {
             break;
 
         case 15: // Toggle Wallpaper
-            showWallpaper = !showWallpaper;
-            window.SetProperty("WALLPAPER:ShowWallpaper", showWallpaper);
-            if (showWallpaper && fb.IsPlaying) {
-                setWallpaperImg();
+            showAlbumArt = !showAlbumArt;
+            window.SetProperty("WALLPAPER:ShowAlbumArt", showAlbumArt);
+            if (showAlbumArt && fb.IsPlaying) {
+                setAlbumArtImg();
             } else {
-                wallpaperImg = null;
+                albumArtImg = null;
             }
             window.Repaint();
             break;
 
         case 16: // Toggle Blur
-            wallpaperBlurred = !wallpaperBlurred;
-            window.SetProperty("WALLPAPER:WallpaperBlurred", wallpaperBlurred);
-            if (showWallpaper && fb.IsPlaying) {
+            albumArtBlurred = !albumArtBlurred;
+            window.SetProperty("WALLPAPER:AlbumArtBlurred", albumArtBlurred);
+            if (showAlbumArt && fb.IsPlaying) {
                 lastPlayingPath = ""; // Force refresh
-                setWallpaperImg();
+                setAlbumArtImg();
             }
             window.Repaint();
             break;
@@ -753,15 +753,15 @@ function on_mouse_rbtn_up(x, y) {
             var blurInput = utils.InputBox(0, 
                 "Enter blur amount (1-90)\nLower = more blur, Higher = less blur\nRecommended: 10-20", 
                 "Set Blur Amount", 
-                wallpaperBlurValue.toString(), "");
+                albumArtBlurValue.toString(), "");
             if (blurInput) {
                 var blurVal = parseInt(blurInput, 10);
                 if (!isNaN(blurVal) && blurVal >= 1 && blurVal <= 90) {
-                    wallpaperBlurValue = blurVal;
-                    window.SetProperty("WALLPAPER:WallpaperBlurValue", wallpaperBlurValue);
-                    if (showWallpaper && fb.IsPlaying) {
+                    albumArtBlurValue = blurVal;
+                    window.SetProperty("WALLPAPER:AlbumArtBlurValue", albumArtBlurValue);
+                    if (showAlbumArt && fb.IsPlaying) {
                         lastPlayingPath = "";
-                        setWallpaperImg();
+                        setAlbumArtImg();
                     }
                     window.Repaint();
                 } else {
@@ -774,15 +774,15 @@ function on_mouse_rbtn_up(x, y) {
             var overlayInput = utils.InputBox(0, 
                 "Enter overlay darkness (0-255)\n0 = transparent, 255 = black\nRecommended: 150-200", 
                 "Set Overlay Darkness", 
-                wallpaperOverlayAlpha.toString(), "");
+                albumArtOverlayAlpha.toString(), "");
             if (overlayInput) {
                 var overlayVal = parseInt(overlayInput, 10);
                 if (!isNaN(overlayVal) && overlayVal >= 0 && overlayVal <= 255) {
-                    wallpaperOverlayAlpha = overlayVal;
-                    window.SetProperty("WALLPAPER:WallpaperOverlayAlpha", wallpaperOverlayAlpha);
-                    if (showWallpaper && fb.IsPlaying) {
+                    albumArtOverlayAlpha = overlayVal;
+                    window.SetProperty("WALLPAPER:AlbumArtOverlayAlpha", albumArtOverlayAlpha);
+                    if (showAlbumArt && fb.IsPlaying) {
                         lastPlayingPath = "";
-                        setWallpaperImg();
+                        setAlbumArtImg();
                     }
                     window.Repaint();
                 } else {
@@ -845,23 +845,23 @@ function on_playlists_changed() {
 
 // --- PLAYBACK CALLBACKS ---
 function on_playback_new_track(metadb) {
-    if (showWallpaper) {
-        setWallpaperImg();
+    if (showAlbumArt) {
+        setAlbumArtImg();
         window.Repaint();
     }
 }
 
 function on_playback_stop(reason) {
-    if (reason !== 2 && showWallpaper) { // reason 2 = starting another track
-        wallpaperImg = null;
+    if (reason !== 2 && showAlbumArt) { // reason 2 = starting another track
+        albumArtImg = null;
         lastPlayingPath = "";
         window.Repaint();
     }
 }
 
 function on_playback_starting(cmd, is_paused) {
-    if (showWallpaper) {
-        setWallpaperImg();
+    if (showAlbumArt) {
+        setAlbumArtImg();
         window.Repaint();
     }
 }
