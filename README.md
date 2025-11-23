@@ -148,13 +148,15 @@ _**Note:**_ You cannot toggle Text mode in horizontal mode
 
 <img width="149" height="577" alt="image" src="https://github.com/user-attachments/assets/0ce18804-33a5-4784-bb81-acafe3b13071" />
 
-### Wallpaper Settings
-<img width="272" height="107" alt="image" src="https://github.com/user-attachments/assets/5fb89641-e975-4777-8e85-b9ffbe897fa9" />
+### Album Art Settings
+<img width="280" height="121" alt="image" src="https://github.com/user-attachments/assets/b6eaa499-e6ce-4450-aaf0-d2a88996256c" />
+
 
 - Enable dynamic album art for the background
 - Once enabled, you can further customize with blur settings to fine tune to your liking:
 
-<img width="297" height="110" alt="image" src="https://github.com/user-attachments/assets/ce5949d8-e2d1-4ebb-8657-7c156420e785" />
+<img width="289" height="111" alt="image" src="https://github.com/user-attachments/assets/d136fa2c-483f-4a46-9587-71befd37265d" />
+
 
 - Blur amount determine how strong you want the blur to be
 - Blur Overlay Darkness will adjust the brightness settings
@@ -163,8 +165,6 @@ _**Note:**_ You cannot toggle Text mode in horizontal mode
 Single JSON storage - All custom covers stored in `DATA:CustomCovers_JSON`
 
 Automatic cleanup - Deleted playlists are automatically removed from the JSON object
-
-The script automatically cleans up unused properties when playlists are deleted or renamed.
 
 ## What if I have a lot of playlists?
 - I would recommend to increase the scroll speed or make the cover tabs smaller!
