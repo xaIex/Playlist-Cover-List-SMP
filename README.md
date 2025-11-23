@@ -3,29 +3,32 @@
 
 Want a Spotify like playlist panel? Tired of boring looking tabs? Sick of walls of texts? Look no further!
 
-A lightweight Spider Monkey Panel script that adds custom cover art, essential playlist functions, customizable features all in one. 
+A lightweight Spider Monkey Panel script that adds custom cover art, essential playlist functions and customizable features all in one. 
 
-<img width="2558" height="1387" alt="image" src="https://github.com/user-attachments/assets/24a390ee-d024-4aef-a30f-60230ed08c92" />
+<img width="1802" height="1160" alt="image" src="https://github.com/user-attachments/assets/91a6ec7c-d550-4091-a352-fee92acc7bd4" />
+
+
+
 
 
 ## Features
 ### Playback & Navigation
-- Quick Playback - Double-click any playlist to instantly play a random track
-- Scrollable View - Smooth scrolling through your entire playlist collection
-- Dual Layout Modes - Switch between horizontal and vertical layouts to fit your theme
+- **Quick Playback** - Double-click any playlist to instantly play a random track
+- **Scrollable View **- Smooth scrolling through your entire playlist collection
+- **Dual Layout Modes** - Switch between horizontal and vertical layouts to fit your theme
 
 ### Visual Customization 
-- Dynamic Wallpaper Background - Display album art from the currently playing track as a blurred background 
-- Extensive Blur Controls - Adjust blur intensity (1-90) and overlay darkness (0-255) for perfect readability 
-- Custom Color Scheme - Personalize background, font, hover, and selection border colors to match your theme
+- **Dynamic Wallpaper Background **- Display album art from the currently playing track as a blurred background 
+- **Extensive Blur Controls** - Adjust blur intensity (1-90) and overlay darkness (0-255) 
+- **Custom Color Scheme** - Personalize background, font, hover, and selection border colors to match your theme
 
 ### Display Options
-- Flexible Info Display - Toggle between two viewing modes:
+- **Flexible Info Display** - Toggle between two viewing modes:
   - Hover mode (covers only, info appears upon hover)
   - Text mode (names and track counts below covers)
 
  ### Playlist Management
- - Essential Functions - Add, Save, Load, Delete, Duplicate, Rename and Reorder playlists
+ - **Essential Functions** - Add, Save, Load, Delete, Duplicate, Rename and Reorder playlists
 
 
 ## Install
@@ -35,7 +38,7 @@ Install Spider Monkey Panel
 
 Right-click in a Spider Monkey Panel → Edit script.
 
-Paste the contents of main.js or releases tab.
+Paste the contents of main.js or PlaylistCoverTabManaer.txt in releases tab.
 
 Click OK to load the panel.
 
@@ -120,8 +123,16 @@ Click OK to load the panel.
 <img width="150" height="158" alt="image" src="https://github.com/user-attachments/assets/6f65ade0-c2d5-481e-9d5c-27deb02451f8" />
 
 
-### Layout modes
-- Can select two layout modes via right click on cover art.
+### Layout/Viewing modes
+- Can select two viewing modes via right click on cover art.
+- Can also toggle vertical or horizontal modes
+
+<img width="276" height="56" alt="image" src="https://github.com/user-attachments/assets/bb5d3d1d-a9f0-434d-8fed-fc44fa090da1" />
+
+
+<img width="1071" height="160" alt="image" src="https://github.com/user-attachments/assets/a60c6ced-266a-4a5f-8394-3a78d66a53cd" />
+
+_**Note:**_ You cannot toggle Text mode in horizontal mode
 
 #### Hover mode:
 - Text elements are hidden until mouse hovers over desired playlist cover
@@ -137,13 +148,15 @@ Click OK to load the panel.
 
 <img width="149" height="577" alt="image" src="https://github.com/user-attachments/assets/0ce18804-33a5-4784-bb81-acafe3b13071" />
 
-### Wallpaper Settings
-<img width="272" height="107" alt="image" src="https://github.com/user-attachments/assets/5fb89641-e975-4777-8e85-b9ffbe897fa9" />
+### Album Art Settings
+<img width="280" height="121" alt="image" src="https://github.com/user-attachments/assets/b6eaa499-e6ce-4450-aaf0-d2a88996256c" />
+
 
 - Enable dynamic album art for the background
 - Once enabled, you can further customize with blur settings to fine tune to your liking:
 
-<img width="297" height="110" alt="image" src="https://github.com/user-attachments/assets/ce5949d8-e2d1-4ebb-8657-7c156420e785" />
+<img width="289" height="111" alt="image" src="https://github.com/user-attachments/assets/d136fa2c-483f-4a46-9587-71befd37265d" />
+
 
 - Blur amount determine how strong you want the blur to be
 - Blur Overlay Darkness will adjust the brightness settings
@@ -153,5 +166,6 @@ Single JSON storage - All custom covers stored in `DATA:CustomCovers_JSON`
 
 Automatic cleanup - Deleted playlists are automatically removed from the JSON object
 
-The script automatically cleans up unused properties when playlists are deleted or renamed.
+## What if I have a lot of playlists?
+- I would recommend to increase the scroll speed or make the cover tabs smaller!
 
